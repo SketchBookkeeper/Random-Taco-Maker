@@ -1,0 +1,497 @@
+@import url('https://fonts.googleapis.com/css?family=Teko:300,400,500,600,700');
+$font-stack: 'Teko',
+'Helvetica',
+sans-serif;
+$sky: #588C7E;
+$shell: #F3C534;
+$base-layer: #8E4427;
+$mixin: #B8DA48;
+$condiment: #D96459;
+$button: #F2AE72;
+$white: #FFF0F0;
+$black: #2A2C2B;
+
+body {
+  background-color: $sky;
+  overflow: hidden;
+  width: 100vw;
+}
+
+*::selection {
+  background-color: lighten($button, 25%);
+  color: $sky;
+}
+
+/*scroll bar*/
+::-webkit-scrollbar {
+    width: 6px;
+}
+ 
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    background-color: $sky;
+    border-radius: 8px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+
+p,
+h1,
+h2,
+h3 {
+  font-family: $font-stack;
+}
+
+h1 {
+  color: lighten($sky, 10%);
+  font-size: 50vw;
+  line-height: 1;
+  width: 100%;
+  height: 0;
+  position: absolute;
+  z-index: -500;
+  margin: 0 !important;
+  padding: 0;
+  text-align: center;
+}
+
+p#intro{
+   position: absolute;
+   left: 10%;
+   margin-top: -50%;
+   font-size: 2em;
+   color: $white;
+   font-weight: 300;
+   transition-duration: 5s;
+  &.closed{
+    display: inline;
+    margin-top: 2%;
+  }
+    strong{
+      font-weight: 700;
+    }
+}
+
+#global-wrapper {
+  margin: 0;
+  padding: 0;
+}
+
+section#taco,
+section#info {
+  display: flex;
+  height: 50vh;
+  width: 100%;
+  margin: 0 auto;
+  float: none;
+  transition-duration: 1.5s;
+  transition-delay: .5s;
+}
+
+section#taco {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  &.closed{
+    height: 100vh;
+  }
+}
+
+section#info {
+  background-color: fade-out($black, .10);
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  &.closed{
+    margin-bottom: -50vh;
+  }
+  #ingredients,#map,#profile{
+    border: 1px solid $white;
+    width: 45%
+  }
+  #map,#profile{
+    height: 43%;  
+  }
+  #ingredients{
+    height: 86%;
+    .wrapper{
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      .base-layer-text,.condiment-text,.mixin-text{
+        position: relative;
+        height: 100%;
+        margin-left: 4%;
+        margin-right: 4%;
+        margin-top: 0;
+        border-bottom: .5px solid $white;
+        font-size: 1.15em;
+        font-weight: 400;
+        P{
+          color: $white;
+          margin: 3px 0;
+          position: absolute;
+          bottom: 10%;;
+        }
+        &:before{
+          content:'';
+          font-family: $font-stack;
+          font-weight: 300;
+          font-size: .75em;
+          color: $sky;
+        }
+      }
+      .base-layer-text{
+        &:before{
+          content:'Base Layer';
+        }
+      }
+      .condiment-text{
+        &:before{
+          content:'Condiment';
+        }
+      }
+      .mixin-text{
+        border-bottom: none;
+        &:before{
+          content:'Mixin';
+        }
+      }
+    }
+  }
+  #profile{
+    margin-top: 0%;
+    overflow-y: scroll;
+    p{
+      font-size: 1em;
+      color: $white;
+      margin: 10px;
+    }
+  }
+}
+
+#tacoWrapper {
+  position: relative;
+  top: 25px;
+  width: 40%;
+  max-width: 300px;
+  min-width: 200px;
+  height: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  .icon-wrapper{
+    position: absolute;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    #loading-icon{
+      display: none;
+      font-size: 7em;
+      color: $white;
+      animation-name: spinner;
+      animation-duration: .55s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+  }
+}
+
+@keyframes spinner{
+  from {transform: rotate(180deg);}
+  to {transform: rotate(360deg);}
+}
+
+.shell {
+  position: absolute;
+  background-color: $shell;
+  width: 100%;
+  height: 100%;
+  border-radius: 100% 100% 5% 10%;
+  &.top-layer {
+    z-index: 10;
+    .shadow {
+      position: absolute;
+      bottom: 4px;
+      z-index: 11;
+      width: 97%;
+      height: 11%;
+      background-color: darken($shell, 8%);
+      border-radius: 10%;
+    }
+    .dots {
+      position: absolute;
+      top: 30%;
+      left: 25%;
+      background-color: white;
+      border-radius: 100%;
+      width: 5px;
+      height: 5px;
+      &:before,
+      &:after {
+        position: absolute;
+        background-color: inherit;
+        border-radius: inherit;
+        content: '';
+        height: inherit;
+        width: inherit;
+      }
+      &:before {
+        top: -5px;
+        left: 30px;
+      }
+      &:after {
+        top: 10px;
+        left: 10px;
+      }
+    }
+  }
+  &.bottom-layer {
+    z-index: -10;
+    top: 5px;
+    left: 7%;
+    background-color: darken($shell, 10%);
+    height: 95%;
+    border-bottom-right-radius: 15%;
+  }
+  .lip {
+    position: absolute;
+    z-index: -10;
+    right: -5.5%;
+    bottom: 6px;
+    height: 3vw;
+    width: 2vw;
+    box-shadow: 0 3px .5px 2px $shell;
+    border-radius: 50%;
+  }
+}
+
+#fillings {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 5%;
+  .base_layer {
+    position: absolute;
+    right: 0;
+    bottom: 3px;
+    width: 15%;
+    height: 50%;
+    background-color: $base-layer;
+    border-radius: 25%;
+    &:after {
+      content: '';
+      position: absolute;
+      right: 4px;
+      bottom: 10px;
+      width: 15%;
+      height: 25%;
+      background-color: darken($base-layer, 4%);
+      border-radius: 100%;
+    }
+  }
+  .mixin {
+    position: absolute;
+    right: -3%;
+    bottom: 40%;
+    width: 30%;
+    height: 7%;
+    background-color: $mixin;
+    border-radius: 400% 0 400% 0;
+    &:before,
+    &:after {
+      position: absolute;
+      width: 30%;
+      height: 100%;
+      content: '';
+      background-color: $mixin;
+      border-radius: 400% 0 400% 0;
+    }
+    &:before {
+      right: 5px;
+      bottom: 100%;
+    }
+    &:after {
+      right: 10px;
+      bottom: 200%;
+      transform: rotate(-20deg);
+    }
+  }
+  .condiment {
+    position: absolute;
+    right: 3%;
+    bottom: 40%;
+    width: 10px;
+    height: 10px;
+    background-color: $condiment;
+    transform: rotate(10deg);
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: $condiment;
+    }
+    &:before {
+      right: -2px;
+      bottom: 25px;
+      transform: rotate(35deg) scale(.80);
+    }
+    &:after {
+      right: -15px;
+      bottom: -39px;
+      transform: rotate(10deg) scale(.75);
+    }
+  }
+}
+
+
+/*button style*/
+
+#btn-wrapper {
+  position: relative;
+  bottom: -25%;
+  min-width: 150px;
+  max-width: 25%;
+  height: 10%;
+  min-height: 50px;
+  color: #333;
+  &:hover {
+    animation-name: shake;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    color: $white;
+  }
+}
+
+/*btn animation*/
+@keyframes shake {
+  0%  {transform: rotate(1deg);}
+  20% {transform: rotate(-1deg);}
+  30% {transform: rotate(2deg);}
+  40% {transform: rotate(-2deg);}
+  50% {transform: rotate(3deg);}
+  60% {transform: rotate(-3deg);}
+  70% {transform: rotate(2deg);}
+  80% {transform: rotate(-2deg);}
+  90% {transform: rotate(-1deg);}
+  100%{transform: rotate(1deg);}
+}
+
+#btn-3d {
+  background-color: $button;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+  }
+  &:before {
+    background-color: darken($button, 5%);
+    height: 15px;
+    width: 100%;
+    top: -14.5px;
+    left: 7px;
+    transform: skew(-45deg);
+  }
+  &:after {
+    background-color: darken($button, 10%);
+    height: 100%;
+    min-width: 15px;
+    top: -7px;
+    right: -14.5px;
+    transform: skewy(-45deg)
+  }
+  p {
+    font-size: 2em;
+    color: inherit;
+    transition-duration: .25s;
+  }
+}
+
+@media screen and (min-width: 770px) {
+  h1{
+  }
+  #global-wrapper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  section#taco,
+  section#info {
+    height: 100vh;
+    width: 50%;
+    margin: 0 auto;
+  }
+  section#taco{
+    &.closed{
+      width: 100%;
+    }
+  }
+  section#info{
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    margin-right: 0;
+    &.closed{
+      margin-right: -50vw;
+      margin-bottom: 0;
+    }
+    #profile{
+      width: 92%;
+      margin-top: 2%;
+    }
+    #ingredients{
+      height: 43%; 
+    }
+    #map{
+      margin-left: 2%;
+    }
+  }
+  #btn-wrapper{
+    margin-top: 100px;
+    bottom: 0;
+  }
+  
+}
+
+@media screen and (min-width: 700px) {
+  #tacoWrapper {
+    height: 200px;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  #shell .lip {
+    right: -6.5%;
+    box-shadow: 0 4px 1px 4px $shell;
+  }
+}
+
+/*screen rotation*/
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+  body{
+    overflow-y: visible;
+  }
+  #tacoWrapper{
+    display: none;
+  }
+  section#info{
+    height: 150vh;
+  }
+}
+
+
